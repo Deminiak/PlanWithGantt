@@ -1,0 +1,56 @@
+<div class="container">
+<div class="col-md-8">
+<div id ="load" ng-show="loading()">
+
+<form>
+    <div class="form-group">
+        <h1>{{MyUsername}} пожалуйста выберите проект</h1>
+    </div>
+<div class="form-group">
+    <button type="button"  ng-click="setsetup1()" class="btn btn-default">Новый план</button>
+    <button type="button" ng-click="setsetup2()" class="btn btn-default">Редактировать план</button>
+</div>
+
+<div class="form-group">
+    <label class="control-label" >Проект</label>
+    <select class="form-control" ng-model="Projectid" ng-change="changemile()">
+        <option ng-repeat="item in Projects" value="{{item.id}}">{{item.name}}</option>
+    </select>
+</div>
+    <div>
+<div class="form-group " id = "milestone" ng-show="loaxdingwait()" hidden>
+    <label class="control-label" >План</label>
+    <select class="form-control" ng-model="Milestonesid" id = "mileid" >
+        <option ng-repeat="item in Milestones" value="{{item.id}}">{{item.title}}</option>
+    </select>
+</div>
+    </div>
+<div class="form-group " id = "title" >
+    <label class="control-label" >Наименование</label>
+    <input type="text" ng-model="MilestonesTitle"  class="form-control" placeholder="Название проекта">
+</div>
+<div class="form-group " >
+    <button type="button" class="btn btn-primary"  ng-click="senddata()">Сохранить данные</button>
+</div>
+    <div class="form-group " >
+        <button type="button" class="btn btn-primary"  onclick="gonext()" id = "cont">продолжить</button>
+    </div>
+</form>
+</div>
+        <div ng-hide="loading()">
+            <img src="../loading.gif" alt="Письма мастера дзен">
+        </div>
+</div>
+</div>
+<script>
+    window.localStorage.removeItem("test");
+    window.localStorage.removeItem("test2");
+    window.localStorage.removeItem("test3");
+    document.getElementById("first").className ="active";
+    document.getElementById("second").className ="disabled";
+    document.getElementById('cont').style.display="none";
+    function gonext() {
+        window.location.href="#!/diagram";
+    }
+</script>
+

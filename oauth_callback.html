@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        var callbackResponce = (document.URL).split("#")[1];
+        var responseParameters = (callbackResponce).split("&");
+        var parameterMap = [];
+        for(var i = 0;i<responseParameters.length;i++){
+            parameterMap[responseParameters[i].split("=")[0]]= responseParameters[i].split("=")[1];
+        }
+        if(parameterMap.access_token !== undefined && parameterMap.access_token !== null)
+        {
+
+
+            var gitlab = {
+            oauth:{
+                access_token: parameterMap.access_token,
+                token_type: parameterMap.token_type
+            }
+
+        };
+            window.localStorage.setItem("gitlab",JSON.stringify(gitlab));
+            window.location.href="http://localhost:8000/#!/project";
+
+        }
+        else
+        {
+            window.location.href="http://localhost:8000/auth";
+        }
+    </script>
+</head>
+<body>
+Redirect...
+</body>
+</html>

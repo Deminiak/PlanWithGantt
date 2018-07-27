@@ -1,0 +1,129 @@
+<link rel="stylesheet" href="../codebase/dhtmlxgantt.css">
+
+<div class="button-group" >
+    <button type="button" class="btn btn-danger" ng-click="goback()">Назад к проектам</button>
+    <button type="button" class="btn btn-success" ng-click="gosend()">Выгрузить в gitlab</button>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-2 col-md-push-10">
+
+        </div>
+        <div class="col-md-10 col-md-pull-2">
+            <div class="gantt_wrapper panel" id="gantt_here"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    if(window.localStorage.getItem("test2")==undefined)
+    {
+        window.location.href = "#!/project";
+    }
+    document.getElementById("first").className ="disabled";
+    document.getElementById("second").className ="active";
+    document.getElementById("third").className ="disabled";
+    var Date_start = new Date;
+    var start_d = Date_start.toString().split('T')[0];
+    if(JSON.parse(window.localStorage.getItem("test2")).Milestonesid !== null)
+    {
+        demo_tasks = JSON.parse(window.localStorage.getItem("test3"));
+    }
+    else
+    {
+        demo_tasks = {
+            data:[
+                {"id":1, "text": JSON.parse(window.localStorage.getItem("test2")).MilestonesTitle, "type":gantt.config.types.project, "duration":"", open: true},{"id":2, "text": "Первая задача", "start_date":Date_start, "duration":"1","parent": 1}],links: []
+        };
+    }
+
+    gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
+    gantt.config.fit_tasks = true;
+    gantt.config.drag_progress =false;
+    gantt.config.drag_links = false;
+    gantt.config.min_duration = 24*60*60*1000;
+    // repaint and recalculate scale range when user moves task close to the edge
+    gantt.attachEvent("onTaskDrag", function(id, mode, task, original){
+
+        var state = gantt.getState();
+        var minDate = state.min_date,
+            maxDate = state.max_date;
+        var scaleStep = gantt.date.add(new Date(), state.scale_step, state.scale_unit) - new Date();
+        var showDate,
+            repaint = false;
+        if(mode == "resize" || mode == "move"){
+            if(Math.abs(task.start_date - minDate) < scaleStep){
+                showDate = task.start_date;
+                repaint = true;
+
+            }else if(Math.abs(task.end_date - maxDate) < scaleStep){
+                showDate = task.end_date;
+                repaint = true;
+            }
+
+            if(repaint){
+                gantt.render();
+                gantt.showDate(showDate);
+            }
+            gantt.render();
+        }
+    });
+
+
+    /*gantt.attachEvent("onBeforeTaskChanged", function(id, parent, tindex){
+        var leftLimit = getstart(JSON.parse(window.localStorage.getItem("test3")),id);
+        var year,month,day;
+        year =leftLimit.toString().split('-')[0];
+        if(leftLimit.toString().split('-')[1].substring(0,1))
+        {
+            month = leftLimit.toString().split('-')[1].substring(1,2)-1;
+        }
+        else
+        {
+            month = leftLimit.toString().split('-')[1];
+        }
+        if(leftLimit.toString().split('-')[2].substring(0,1))
+        {
+            day = leftLimit.toString().split('-')[2].substring(1,2);
+        }
+        else
+        {
+            day = leftLimit.toString().split('-')[2];
+        }
+        var leftLimitvalue = new Date(year,month,day);
+        // alert(year+month+day);
+        //alert(leftLimitvalue);
+            var start = this.getTask(id).start_date;
+            if(start < leftLimitvalue){
+                return false;
+            }
+        gantt.render();
+    });*/
+    gantt.config.grid_width = 390;
+    gantt.config.scale_height = 60;
+
+    gantt.attachEvent("onAfterTaskDrag", function(id, mode, e){
+        gantt.render();
+    });
+    function getstart(JSON1,id)
+    {
+        for(i in JSON1.data)
+        {
+            if(JSON1.data[i].id == id)
+            {
+                return JSON1.data[i].start_date;
+            }
+        }
+    }
+    gantt.attachEvent("onAfterTaskAdd", function (id, item) {
+
+            this.getTask(id).parent = 1;
+
+    });
+
+    gantt.init("gantt_here");
+    gantt.parse(demo_tasks);
+</script>

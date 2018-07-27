@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="cache-control" content="no-store">
+  <meta http-equiv="cache-control" content="must-revalidate">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+  <title>Сервис визуализации планирования</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="../bootstrap/jquery-1.11.1.min.js?v=20180227"></script>
+  <link rel="stylesheet" href="../bootstrap/3.2.0/css/bootstrap.min.css?v=20180227">
+  <link rel="stylesheet" href="../bootstrap/3.2.0/css/bootstrap-theme.min.css?v=20180227">
+  <script src="../bootstrap/3.2.0/js/bootstrap.min.js?v=20180227"></script>
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  <script src="../codebase/dhtmlxgantt.js?v=20180227"></script>
+  <script src="../codebase/locale/locale_ru.js?v=20180227"></script>
+  <style>
+    html, body {
+      height: 100%;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .well {
+      text-align: right;
+    }
+
+    @media (max-width: 991px) {
+      .nav-stacked > li {
+        float: left;
+      }
+    }
+
+    .container-fluid .row {
+      margin-bottom: 10px;
+    }
+
+    .container-fluid .gantt_wrapper {
+      height: 700px;
+      width: 120%;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container-fluid " >
+  <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+    <li class="active" id="first" ><a href="">
+      <h4 class="list-group-item-heading">Выбор проекта</h4>
+      <p class="list-group-item-text">Выбор проекта из списка проектов</p>
+    </a></li>
+    <li class="disabled" id="second"><a href="#!/diagram">
+      <h4 class="list-group-item-heading">Составление плана</h4>
+      <p class="list-group-item-text">Составление плана с помощью диаграммы</p>
+    </a></li>
+    <li class="disabled" id = "third"><a href="">
+      <h4 class="list-group-item-heading">Выгрузка в gitlab</h4>
+      <p class="list-group-item-text">Выгрузка плана в таск-трекер</p>
+    </a></li>
+    <li class=""><a onclick="logout()" >
+      <h4 class="list-group-item-heading">Выйти</h4>
+      <p class="list-group-item-text"></p>
+    </a></li>
+
+  </ul>
+
+  <div ng-view></div>
+</div>
+<script>
+  function logout() {
+      window.localStorage.clear();
+      window.location.href = "/auth";
+  }
+</script>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+
+  <script src="diagram/diagram.js"></script>
+  <script src="send/send.js"></script>
+  <script src="project/project.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+</body>
+</html>

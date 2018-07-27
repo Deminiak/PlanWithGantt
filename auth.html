@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="../bootstrap/jquery-1.11.1.min.js?v=20180227"></script>
+    <link rel="stylesheet" href="../bootstrap/3.2.0/css/bootstrap.min.css?v=20180227">
+    <link rel="stylesheet" href="../bootstrap/3.2.0/css/bootstrap-theme.min.css?v=20180227">
+    <script src="../bootstrap/3.2.0/js/bootstrap.min.js?v=20180227"></script>
+<link href="cover.css" rel="stylesheet">
+</head><body>
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">Веб-сервис</h3>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <h1 class="cover-heading">Авторизация</h1>
+                <p class="lead">Для входа в веб-сервис необходимо авторизироваться через gitlab</p>
+                <p class="lead">
+                    <a href="#" class="btn btn-lg btn-default" onclick="login()" >Login</a>
+                </p>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+    </body>
+</html>
+<script>
+   function login () {
+       window.location.href ="https://gitlab.com/oauth/authorize?client_id=6b7e6da7c7a03fdc0953daf7d0159199fa11b3d0a5729859c187f70e89aa9869&redirect_uri=http://localhost:8000/oauth_callback.html&response_type=token";
+   }
+</script>
